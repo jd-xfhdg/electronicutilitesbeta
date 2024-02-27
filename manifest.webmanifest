@@ -2,14 +2,14 @@
   "name": "Github Page PWA",
   "short_name": "GPPWA",
   "description": "Github Page as a Progressive Web App",
-  "scope": "/electronicutilitiesbeta/",
-  "start_url": "/electronicutilitiesbeta/",
+  "scope": "/electronicutilitesbeta/",
+  "start_url": "/electronicutilitesbeta/",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
   "display": "standalone", 
   "icons": [
       {
-        "src": "/electronicutilitiesbeta/img/icon.png",
+        "src": "/electronicutilitesbeta/img/icon.png",
         "type": "image/png",
         "sizes": "700x700"
       }

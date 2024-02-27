@@ -1,4 +1,4 @@
-var GHPATH = '/electronicutilitiesbeta';
+var GHPATH = '/electronicutilitesbeta';
 var APP_PREFIX = 'gppwa_';
 var VERSION = 'version_002';
 var URLS = [    
