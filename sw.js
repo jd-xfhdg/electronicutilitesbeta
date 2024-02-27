@@ -8,7 +8,7 @@ var URLS = [
   `${GHPATH}/img/icon.png`,
   `${GHPATH}/js/app.js`
 ]
-
+/*
 var CACHE_NAME = APP_PREFIX + VERSION
 self.addEventListener('fetch', function (e) {
   console.log('Fetch request : ' + e.request.url);
@@ -24,7 +24,7 @@ self.addEventListener('fetch', function (e) {
     })
   )
 }) 
-
+*/
 self.addEventListener('install', function (e) {
   e.waitUntil(
     caches.open(CACHE_NAME).then(function (cache) {
@@ -33,7 +33,7 @@ self.addEventListener('install', function (e) {
     })
   )
 })
-
+/*
  self.addEventListener('activate', function (e) {
   e.waitUntil(
     caches.keys().then(function (keyList) {
@@ -50,3 +50,4 @@ self.addEventListener('install', function (e) {
     })
   )
 }) 
+  */
