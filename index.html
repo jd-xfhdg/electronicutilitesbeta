@@ -280,6 +280,7 @@
       <a href="#app1">AlternativeResistorV11</a>
       <a href="#app2">SuperMetodoV5</a>
       <a href="#app3">ElFiltranteV5</a>
+      <button id="refresh-button" onclick="refreshPage()">Actualizar</button>
     </nav>
   </header>
 
@@ -3899,6 +3900,23 @@
         showApp3();
       }
     });
+
+    function refreshPage() {
+  // Borrar la caché
+  if ('caches' in window) {
+    caches.keys().then(function(cacheNames) {
+      cacheNames.forEach(function(cacheName) {
+        caches.delete(cacheName);
+      });
+    });
+  }
+
+  // Recargar la página
+  window.location.reload(true);
+}
+
+
+
 
     function showApp1() {
       document.getElementById("app1").style.display = "block";
