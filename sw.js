@@ -1,6 +1,6 @@
 var GHPATH = '/electronicutilitesbeta';
 var APP_PREFIX = 'EUV4_';
-var VERSION = '4';
+var VERSION = '7';
 var URLS = [    
   `${GHPATH}/`,
   `${GHPATH}/index.html`,
