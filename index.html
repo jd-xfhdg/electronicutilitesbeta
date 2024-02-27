@@ -280,7 +280,7 @@
       <a href="#app1">AlternativeResistorV11</a>
       <a href="#app2">SuperMetodoV5</a>
       <a href="#app3">ElFiltranteV5</a>
-      <button id="refresh-button" onclick="checkConnection()">Actualizar</button>
+      <button id="refresh-button" onclick="refreshPage()">Actualizar</button>
     </nav>
   </header>
 
@@ -3915,24 +3915,40 @@
   window.location.reload(true);
 }
 function checkConnection() {
-  fetch('https://jd-xfhdg.github.io/electronicutilstest/')
-    .then(function(response) {
-      if (response.ok) {
-        console.log('¡Conexión exitosa!');
-        // Borrar la caché y recargar la página aquí
-        refreshPage();
-
-
-      } else {
-        console.log('No hay conexión al sitio web');
-        // Puedes mostrar un mensaje al usuario indicando que no hay conexión al sitio web
+        fetch('https://www.example.com')
+          .then(function(response) {
+            if (response.ok) {
+              console.log('¡Conexión exitosa!');
+              deleteCacheAndReload();
+            } else {
+              console.log('No hay conexión al sitio web');
+              // Puedes mostrar un mensaje al usuario indicando que no hay conexión al sitio web
+            }
+          })
+          .catch(function(error) {
+            console.log('Error al intentar conectarse al sitio web:', error);
+            // Puedes mostrar un mensaje al usuario indicando que ocurrió un error al intentar conectarse al sitio web
+          });
       }
-    })
-    .catch(function(error) {
-      console.log('Error al intentar conectarse al sitio web:', error);
-      // Puedes mostrar un mensaje al usuario indicando que ocurrió un error al intentar conectarse al sitio web
-    });
-}
+      function deleteCacheAndReload() {
+        if ('caches' in window) {
+          caches.keys().then(function(cacheNames) {
+            cacheNames.forEach(function(cacheName) {
+              caches.delete(cacheName);
+            });
+          });
+        }
+      
+        window.location.reload(true);
+      }
+      function refreshPage() {
+        if (navigator.onLine) {
+          checkConnection();
+        } else {
+          console.log('No hay conexión a internet');
+          // Puedes mostrar un mensaje al usuario indicando que no hay conexión
+        }
+      }
 
 
 
