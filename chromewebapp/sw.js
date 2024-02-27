@@ -1,25 +1,32 @@
-// Escucha el evento 'install' para almacenar en caché los recursos necesarios
-self.addEventListener('install', function(event) {
-    event.waitUntil(
-      caches.open('my-pwa-cache')
-        .then(function(cache) {
-          return cache.addAll([
-            '/',
-            '/index.html',
-            '/styles.css',
-            '/main.js'
-            // Agrega aquí los recursos adicionales que tu aplicación necesita
-          ]);
-        })
-    );
-  });
-  
-  // Intercepta las solicitudes de red y busca en la caché primero
-  self.addEventListener('fetch', function(event) {
-    event.respondWith(
-      caches.match(event.request)
-        .then(function(response) {
-          return response || fetch(event.request);
-        })
-    );
-  });
+const CACHE_NAME = 'my-pwa-cache-v1';
+const urlsToCache = [
+  '/',
+  '/index.html',
+  '/styles.css',
+  '/script.js',
+  // Agrega aquí todos los archivos que deseas almacenar en caché
+];
+
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => {
+        console.log('Caché abierta');
+        return cache.addAll(urlsToCache);
+      })
+  );
+});
+
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => {
+        // Si la solicitud está en caché, la devuelve
+        if (response) {
+          return response;
+        }
+        // Si la solicitud no está en caché, la solicita a la red
+        return fetch(event.request);
+      })
+  );
+});
