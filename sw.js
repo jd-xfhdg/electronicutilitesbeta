@@ -1,6 +1,6 @@
 var GHPATH = '/electronicutilitesbeta';
-var APP_PREFIX = 'gppwa_';
-var VERSION = 'version_002';
+var APP_PREFIX = 'EUV4_';
+var VERSION = '4';
 var URLS = [    
   `${GHPATH}/`,
   `${GHPATH}/index.html`,
@@ -8,7 +8,7 @@ var URLS = [
   `${GHPATH}/img/icon.png`,
   `${GHPATH}/js/app.js`
 ]
-/* 
+
 var CACHE_NAME = APP_PREFIX + VERSION
 self.addEventListener('fetch', function (e) {
   console.log('Fetch request : ' + e.request.url);
@@ -23,7 +23,7 @@ self.addEventListener('fetch', function (e) {
       }
     })
   )
-}) */
+}) 
 
 self.addEventListener('install', function (e) {
   e.waitUntil(
@@ -34,7 +34,7 @@ self.addEventListener('install', function (e) {
   )
 })
 
-/* self.addEventListener('activate', function (e) {
+ self.addEventListener('activate', function (e) {
   e.waitUntil(
     caches.keys().then(function (keyList) {
       var cacheWhitelist = keyList.filter(function (key) {
@@ -49,4 +49,4 @@ self.addEventListener('install', function (e) {
       }))
     })
   )
-}) */
+}) 

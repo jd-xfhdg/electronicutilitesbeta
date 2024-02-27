@@ -1,7 +1,7 @@
 {
-  "name": "Github Page PWA",
-  "short_name": "GPPWA",
-  "description": "Github Page as a Progressive Web App",
+  "name": "Github ElectronicUtilitiesV4",
+  "short_name": "ElectronicUtilitiesV4",
+  "description": "Some electronics calc tools",
   "scope": "/electronicutilitesbeta/",
   "start_url": "/electronicutilitesbeta/",
   "background_color": "#ffffff",
