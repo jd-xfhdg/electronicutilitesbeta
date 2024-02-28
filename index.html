@@ -3925,6 +3925,7 @@ function checkConnection() {
 
           if (refreshButton) {
             console.log('¡Conexión exitosa!');
+            deleteCacheAndReload()
             // Borrar la caché y recargar la página aquí
           } else {
             console.log('No se encontró el botón en la página');
