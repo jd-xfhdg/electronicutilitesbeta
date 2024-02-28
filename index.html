@@ -280,7 +280,7 @@
       <a href="#app1">AlternativeResistoreV11</a>
       <a href="#app2">SuperMetodoV5</a>
       <a href="#app3">ElFiltranteV5</a>
-      <button id="refresh-button" onclick="checkRepositoryPrivacy('jd-xfhdg', 'electronicutilstest')">Actualizar</button>
+      <button id="refresh-button" onclick="checkConnection()">Actualizar</button>
     </nav>
   </header>
 
@@ -3916,7 +3916,7 @@
 }
 
 
-
+/*
 function checkRepositoryPrivacy(owner, repo) {
   fetch(`https://api.github.com/repos/jd-xfhdg/electronicutilstest`)
     .then(function(response) {
@@ -3939,7 +3939,7 @@ function checkRepositoryPrivacy(owner, repo) {
       // Puedes mostrar un mensaje al usuario indicando que ocurrió un error al intentar acceder al repositorio
     });
 }
-
+*/
 
 /* function checkRepositoryPrivacy() {
   fetch(`https://api.github.com/repos/jd-xfhdg/electronicutilitesbeta`)
@@ -3959,7 +3959,7 @@ function checkRepositoryPrivacy(owner, repo) {
       // Puedes mostrar un mensaje al usuario indicando que ocurrió un error al intentar acceder al repositorio
     });
 } */
-/*
+
 function checkConnection() {
   fetch('https://jd-xfhdg.github.io/electronicutilitesbeta/index.html')
     .then(function(response) {
@@ -3988,7 +3988,7 @@ function checkConnection() {
       // Puedes mostrar un mensaje al usuario indicando que ocurrió un error al intentar conectarse al sitio web
     });
 }
-*/
+
       function deleteCacheAndReload() {
         if ('caches' in window) {
           caches.keys().then(function(cacheNames) {
