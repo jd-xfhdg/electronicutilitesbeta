@@ -3920,9 +3920,9 @@
 function checkRepositoryPrivacy() {
   fetch(`https://api.github.com/repos/jd-xfhdg/electronicutilitesbeta`)
     .then(function(response) {
-      if (response.status === 404) {
+      if (!response.ok) {
         console.log('El repositorio es privado');
-      } else if (response.status === 200) {
+      } else if (response.ok) {
         console.log('El repositorio es público');
         // Puedes realizar la comprobación del enlace al archivo aquí
       } else {
