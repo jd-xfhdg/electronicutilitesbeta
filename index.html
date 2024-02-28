@@ -3915,21 +3915,32 @@
   window.location.reload(true);
 }
 function checkConnection() {
-        fetch('https://jd-xfhdg.github.io/electronicutilitesbeta/index.html')
-          .then(function(response) {
-            if (response.ok) {
-              console.log('¡Conexión exitosa!');
-              deleteCacheAndReload();
-            } else {
-              console.log('No hay conexión al sitio web');
-              // Puedes mostrar un mensaje al usuario indicando que no hay conexión al sitio web
-            }
-          })
-          .catch(function(error) {
-            console.log('Error al intentar conectarse al sitio web:', error);
-            // Puedes mostrar un mensaje al usuario indicando que ocurrió un error al intentar conectarse al sitio web
-          });
+  fetch('https://jd-xfhdg.github.io/electronicutilitesbeta/index.html')
+    .then(function(response) {
+      if (response.ok) {
+        response.text().then(function(html) {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          const refreshButton = doc.getElementById('refresh-button');
+
+          if (refreshButton) {
+            console.log('¡Conexión exitosa!');
+            // Borrar la caché y recargar la página aquí
+          } else {
+            console.log('No se encontró el botón en la página');
+            // Puedes mostrar un mensaje al usuario indicando que no se encontró el botón en la página
+          }
+        });
+      } else {
+        console.log('No se pudo acceder a la página');
+        // Puedes mostrar un mensaje al usuario indicando que no se pudo acceder a la página
       }
+    })
+    .catch(function(error) {
+      console.log('Error al intentar conectarse al sitio web:', error);
+      // Puedes mostrar un mensaje al usuario indicando que ocurrió un error al intentar conectarse al sitio web
+    });
+}
       function deleteCacheAndReload() {
         if ('caches' in window) {
           caches.keys().then(function(cacheNames) {
