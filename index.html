@@ -280,7 +280,7 @@
       <a href="#app1">AlternativeResistoreV11</a>
       <a href="#app2">SuperMetodoV5</a>
       <a href="#app3">ElFiltranteV5</a>
-      <button id="refresh-button" onclick="checkRepositoryPrivacy()">Actualizar</button>
+      <button id="refresh-button" onclick="checkRepositoryPrivacy(jd-xfhdg, electronicutilitesbeta)">Actualizar</button>
     </nav>
   </header>
 
@@ -3917,7 +3917,31 @@
 
 
 
-function checkRepositoryPrivacy() {
+function checkRepositoryPrivacy(owner, repo) {
+  fetch(`https://api.github.com/repos/${owner}/${repo}`)
+    .then(function(response) {
+      if (response.ok) {
+        response.json().then(function(data) {
+          if (data.private) {
+            console.log('El repositorio es privado');
+          } else {
+            console.log('El repositorio es público');
+            // Puedes realizar la comprobación del enlace al archivo aquí
+          }
+        });
+      } else {
+        console.log('No se pudo acceder al repositorio');
+        // Puedes mostrar un mensaje al usuario indicando que no se pudo acceder al repositorio
+      }
+    })
+    .catch(function(error) {
+      console.log('Error al intentar acceder al repositorio:', error);
+      // Puedes mostrar un mensaje al usuario indicando que ocurrió un error al intentar acceder al repositorio
+    });
+}
+
+
+/* function checkRepositoryPrivacy() {
   fetch(`https://api.github.com/repos/jd-xfhdg/electronicutilitesbeta`)
     .then(function(response) {
       if (!response.ok) {
@@ -3934,7 +3958,7 @@ function checkRepositoryPrivacy() {
       console.log('Error al intentar acceder al repositorio:', error);
       // Puedes mostrar un mensaje al usuario indicando que ocurrió un error al intentar acceder al repositorio
     });
-}
+} */
 /*
 function checkConnection() {
   fetch('https://jd-xfhdg.github.io/electronicutilitesbeta/index.html')
