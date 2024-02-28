@@ -3914,6 +3914,28 @@
   // Recargar la página
   window.location.reload(true);
 }
+
+
+
+function checkRepositoryPrivacy() {
+  fetch(`https://api.github.com/repos/jd-xfhdg/electronicutilitesbeta`)
+    .then(function(response) {
+      if (response.status === 404) {
+        console.log('El repositorio es privado');
+      } else if (response.status === 200) {
+        console.log('El repositorio es público');
+        // Puedes realizar la comprobación del enlace al archivo aquí
+      } else {
+        console.log('No se pudo acceder al repositorio');
+        // Puedes mostrar un mensaje al usuario indicando que no se pudo acceder al repositorio
+      }
+    })
+    .catch(function(error) {
+      console.log('Error al intentar acceder al repositorio:', error);
+      // Puedes mostrar un mensaje al usuario indicando que ocurrió un error al intentar acceder al repositorio
+    });
+}
+/*
 function checkConnection() {
   fetch('https://jd-xfhdg.github.io/electronicutilitesbeta/index.html')
     .then(function(response) {
@@ -3942,6 +3964,7 @@ function checkConnection() {
       // Puedes mostrar un mensaje al usuario indicando que ocurrió un error al intentar conectarse al sitio web
     });
 }
+*/
       function deleteCacheAndReload() {
         if ('caches' in window) {
           caches.keys().then(function(cacheNames) {
