@@ -1505,7 +1505,7 @@
               document.getElementById("b_texto2").textContent =
                 "colocando " +
                numeroRedondeado +
-                "*A en SuperMetodoV5 es posible conseguir un amplificador adecuado";
+                "*A en SuperMetodoModV1 es posible conseguir un amplificador adecuado";
             }
             convertirNumero(b_g_objetivo);
           }
@@ -1963,7 +1963,7 @@
               document.getElementById("a_texto2").textContent =
                 "colocando " +
                numeroRedondeado +
-                "*A en SuperMetodoV5 es posible conseguir un amplificador adecuado";
+                "*A en SuperMetodoModV1 es posible conseguir un amplificador adecuado";
             }
             convertirNumero(a_g_objetivo);
           }
@@ -2438,7 +2438,7 @@
               document.getElementById("w_b_texto2").textContent =
                 "colocando " +
                numeroRedondeado +
-                "*A en SuperMetodoV5 es posible conseguir un amplificador adecuado";
+                "*A en SuperMetodoModV1 es posible conseguir un amplificador adecuado";
               */
               }
             }
@@ -2907,7 +2907,7 @@
                   "Falta una ganancia de " + numeroRedondeado;
                 document.getElementById("w_a_texto2").textContent =
                   "colocando " +
-                  fraccionSimplificada +
+                  numeroRedondeado +
                   "*A en SuperMetodoV5 es posible conseguir un amplificador adecuado";
               }
               convertirNumero(w_a_g_objetivo);
@@ -3378,6 +3378,7 @@
                 }
 
                 let numeroRedondeado = numero.toFixed(4);
+                numeroredondeadob = numeroRedondeado;
                 let fraccion = convertirAFraccion(numeroRedondeado);
                 fraccionSimplificadaB = simplificarFraccion(
                   fraccion.split("/")[0],
@@ -3390,7 +3391,7 @@
                   "Falta una ganancia de " + numeroRedondeado;
                 document.getElementById("r_b_texto2").textContent =
                   "colocando " +
-                  fraccionSimplificadaB +
+                  numeroRedondeado +
                   "*B en SuperMetodoV5 es posible conseguir un amplificador adecuado";
               }
               convertirNumero(r_b_g_objetivo);
@@ -3860,16 +3861,16 @@
                   "Falta una ganancia de " + numeroRedondeado;
                 document.getElementById("r_a_texto2").textContent =
                   "colocando " +
-                  fraccionSimplificada +
+                  numeroRedondeado +
                   "*A en SuperMetodoV5 es posible conseguir un amplificador adecuado";
 
                 superlabel = document.getElementById("r_superlabel");
                 superlabel.innerHTML = "";
                 superlabel.textContent =
                   "colocando " +
-                  fraccionSimplificada +
+                  numeroRedondeado +
                   "*A+" +
-                  fraccionSimplificadaB +
+                  numeroredondeadob +
                   "*B en SuperMetodoV5, es posible hacer la suma con las ganancias necesarias de los filtros";
               }
               r_a_convertirNumero(r_a_g_objetivo);
@@ -3884,6 +3885,7 @@
 
         <script>
           let fraccionSimplificadaB;
+          let numeroredondeadob;
           let r_b_ganancia;
         </script>
         <br />
