@@ -282,7 +282,8 @@
     <nav>
       <a href="#app1">AlternativeResistorV11</a>
       <a href="#app2">SuperMetodoV5</a>
-      <a href="#app3">ElFiltranteV5</a>
+      <a href="#app3">SuperMetodoModV1</a>
+      <a href="#app4">ElFiltranteV5</a>
       <button id="refresh-button" onclick="checkConnection()">Actualizar</button>
     </nav>
   </header>
@@ -750,6 +751,8 @@
       <p>
         Los coeficientes positivos indican que van en la entrada no inversora
       </p>
+      <p>Si sale Rx va desde el positivo a tierra</p>
+      <p>Si sale Ry va desde el negativo a tierra</p>
     </div>
     <script>
       // calculadora.js
@@ -885,7 +888,7 @@
     </script>
   </div>
 
-  <div id="app3" style="display: none" class="container">
+  <div id="app4" style="display: none" class="container">
     <div class="miclase">
     <script>
       const steven_baja_v2 =
@@ -3890,6 +3893,162 @@
   </div>
   </div>
 
+  <div id="app3" style="display: none;" >
+    <body>
+
+      <div class="container">
+      <h1>SuperMetodoModV1</h1>
+  
+      <form id="miFormulario_mod" class="formu">
+          <label for="polinomio_mod">Expresión:</label><br>
+          <input type="text" id="polinomio_mod" name="polinomio_mod"><br>
+          <label for="valorCampo_mod">Rf:</label><br>
+          <input type="text" id="valorCampo_mod" name="valorCampo_mod"><br>
+          <input type="submit" value="Calcular">
+      </form>
+      <h2>Resultados:</h2>
+      <ul id="resultados_mod"></ul><br>
+      <p id="RxRyRf_mod"></p>
+  </div>
+  <button class="info-button" onclick="showInfo_mod()">i</button>
+  
+  <div class="info-popup" id="infoPopup_mod">
+      <p>Versión modificada de SuperMEtodo</p>
+      <p>Ahora acepta expresiones como</p>
+      <p>3.5*A-4*B+10/3*C</p>
+      <p>Si sale Rx va desde el positivo a tierra</p>
+      <p>Si sale Ry va desde el negativo a tierra</p>
+
+      
+  </div>
+      <script>
+  // calculadora.js
+  function engineeringToNumber(str) {
+            const match = str.match(/^(\d*\.?\d+)([kMGTPEZY]?)/);
+            if (!match) {
+              return NaN;
+            }
+            const [, value, exponent] = match;
+            const multiplier = {
+              "": 1,
+              k: 1e3,
+              M: 1e6,
+              G: 1e9,
+              T: 1e12,
+              P: 1e15,
+              E: 1e18,
+              Z: 1e21,
+              Y: 1e24,
+            }[exponent];
+            return parseFloat(value) * multiplier;
+          }
+  function obtenerTerminos_mod(polinomio_mod, valorCampo_mod) {
+      let terminos = polinomio_mod.match(/[-+]?[^-+]+/g);
+      console.log(terminos);
+  
+      let resultado = terminos.map(termino => {
+          let coeficiente = termino.match(/[-+]?\d+(\.\d+)?(\/\d+(\.\d+)?)?/);
+  
+          let numerador, denominador;
+          if (coeficiente) {
+              if (coeficiente[0].includes('/')) {
+                  [numerador, denominador] = coeficiente[0].split('/');
+                  numerador = parseInt(numerador);
+                  denominador = parseInt(denominador);
+                  let divisor = mcd(numerador, denominador);
+                  numerador /= divisor;
+                  denominador /= divisor;
+              } else {
+                  numerador = parseFloat(coeficiente[0]);
+                  denominador = 1;
+              }
+          } else {
+              numerador = 1;
+              denominador = 1;
+          }
+          let valor = numerador / denominador;
+          let letra = termino.match(/[a-zA-Z]/)[0];
+          return {numerador, denominador, valor, letra};
+      });
+      let z = resultado.reduce((acumulador, termino) => acumulador + termino.valor, 0) - 1;
+      let pro_den = resultado.reduce((acumulador, termino) => acumulador * termino.denominador, 1);
+      let z_up = z * pro_den;
+  
+      function mcd(a, b) {
+          return b == 0 ? a : mcd(b, a % b);
+      }
+  
+      function mcm(a, b) {
+          return a * b / mcd(a, b);
+      }
+  
+      let mcm_numeradores_z_up = resultado.reduce((acumulador, termino) => mcm(acumulador, Math.abs(termino.numerador)), z != 0 ? Math.abs(z_up) : 1);
+      let Rf = valorCampo_mod;
+  
+      return {terminos: resultado, z, pro_den, z_up, mcm_numeradores_z_up, Rf};
+  }
+  
+  function formatearValor_mod(valor) {
+      if (Math.abs(valor) >= 1e9) {
+          return (valor / 1e9).toFixed(2) + "GΩ";
+      } else if (Math.abs(valor) >= 1e6) {
+          return (valor / 1e6).toFixed(2) + "MΩ";
+      } else if (Math.abs(valor) >= 1e3) {
+          return (valor / 1e3).toFixed(2) + "kΩ";
+      } else if (Math.abs(valor) >= 1) {
+          return valor.toFixed(2) + "Ω";
+      } else if (Math.abs(valor) >= 1e-3) {
+          return (valor * 1e3).toFixed(2) + "mΩ";
+      } else if (Math.abs(valor) >= 1e-6) {
+          return (valor * 1e6).toFixed(2) + "μΩ";
+      } else if (Math.abs(valor) >= 1e-9) {
+          return (valor * 1e9).toFixed(2) + "nΩ";
+      } else {
+          return valor.toExponential(2) + "Ω";
+      }
+  }
+  
+  document.getElementById("miFormulario_mod").addEventListener("submit", function(event) {
+      event.preventDefault();
+      let polinomio_mod = document.getElementById("polinomio_mod").value;
+      let valorCampo_mod = parseFloat(engineeringToNumber(document.getElementById("valorCampo_mod").value));
+      let {terminos, z, pro_den, z_up, mcm_numeradores_z_up, Rf} = obtenerTerminos_mod(polinomio_mod, valorCampo_mod);
+  
+      let resultadosElemento = document.getElementById("resultados_mod");
+      resultadosElemento.innerHTML = "";
+      for (let termino of terminos) {
+          let liElemento = document.createElement("li");
+          liElemento.textContent = `R${termino.letra} = ${formatearValor_mod(Math.abs(Rf / termino.valor))}`;
+          console.log(termino.valor);
+          resultadosElemento.appendChild(liElemento);
+      }
+  
+      let RxRyRfElemento = document.getElementById("RxRyRf_mod");
+      RxRyRfElemento.textContent = `Rf = ${formatearValor_mod(Rf)}`;
+      if (z > 0) {
+          RxRyRfElemento.textContent += ` | Ry = ${formatearValor_mod(Math.abs(Rf / z))}`;
+      } else if (z < 0) {
+          RxRyRfElemento.textContent += ` | Rx = ${formatearValor_mod(Math.abs(Rf / z))}`;
+      }
+  });
+  
+  
+  
+  
+  function showInfo_mod() {
+      var infoPopup_mod = document.getElementById("infoPopup_mod");
+      if (infoPopup_mod.style.display === "none") {
+          infoPopup_mod.style.display = "block";
+      } else {
+          infoPopup_mod.style.display = "none";
+      }
+  }
+  
+      </script>
+  </body>
+  
+  </div>
+
   <script>
     // Toggle app display
 
@@ -3901,6 +4060,9 @@
       }
       else if (e.target.hash=="#app3"){
         showApp3();
+      }
+      else if (e.target.hash=="#app4"){
+        showApp4();
       }
     });
 
@@ -4018,17 +4180,26 @@ function checkConnection() {
       document.getElementById("app1").style.display = "block";
       document.getElementById("app2").style.display = "none";
       document.getElementById("app3").style.display = "none";
+      document.getElementById("app4").style.display = "none";
     }
 
     function showApp2() {
       document.getElementById("app1").style.display = "none";
         document.getElementById("app2").style.display = "block";
         document.getElementById("app3").style.display = "none";
+        document.getElementById("app4").style.display = "none";
     }
     function showApp3() {
       document.getElementById("app1").style.display = "none";
         document.getElementById("app2").style.display = "none";
         document.getElementById("app3").style.display = "block";
+        document.getElementById("app4").style.display = "none";
+    }
+    function showApp4() {
+      document.getElementById("app1").style.display = "none";
+        document.getElementById("app2").style.display = "none";
+        document.getElementById("app3").style.display = "none";
+        document.getElementById("app4").style.display = "block";
     }
 
   </script>
