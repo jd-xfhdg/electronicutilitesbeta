@@ -3924,25 +3924,7 @@
   </div>
       <script>
   // calculadora.js
-  function engineeringToNumber(str) {
-            const match = str.match(/^(\d*\.?\d+)([kMGTPEZY]?)/);
-            if (!match) {
-              return NaN;
-            }
-            const [, value, exponent] = match;
-            const multiplier = {
-              "": 1,
-              k: 1e3,
-              M: 1e6,
-              G: 1e9,
-              T: 1e12,
-              P: 1e15,
-              E: 1e18,
-              Z: 1e21,
-              Y: 1e24,
-            }[exponent];
-            return parseFloat(value) * multiplier;
-          }
+
   function obtenerTerminos_mod(polinomio_mod, valorCampo_mod) {
       let terminos = polinomio_mod.match(/[-+]?[^-+]+/g);
       console.log(terminos);
